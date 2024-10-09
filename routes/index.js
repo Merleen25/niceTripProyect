@@ -34,6 +34,15 @@ router.get('/reservaciones', (req, res) => {
         prueba
     });
 });
+router.get('/cotizaciones', (req, res) => {
+    
+    const prueba = 'cotizaciones';
+
+    res.render('cotizaciones', {
+        prueba
+    });
+});
+
 
 
 

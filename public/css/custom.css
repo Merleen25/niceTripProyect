@@ -46,6 +46,11 @@ a {
     height: 350px;
     background-size: cover;
 }
+#cotizar {
+    background-image:url(../imagenes/cotizaciones.jpg);
+    height: 350px;
+    background-size: cover;
+}
 #encabezado {
     margin: 30px 0;
 }
