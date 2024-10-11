@@ -1,6 +1,7 @@
 import express from "express";
 import path from "path";
 import morgan from "morgan";
+import cookieParser from 'cookie-parser';
 
 import customerRoutes from "./routes/customer.routes.js";
 import { fileURLToPath } from "url";
@@ -16,6 +17,7 @@ app.set("view engine", "ejs");
 // middlewares
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
 
 // routes
 app.use(customerRoutes);

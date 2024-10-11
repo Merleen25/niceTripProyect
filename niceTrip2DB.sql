@@ -29,9 +29,12 @@ CREATE TABLE `cliente` (
   `clave` char(50) DEFAULT NULL,
   `direccion` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`idCliente`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `cliente` */
+
+insert  into `cliente`(`idCliente`,`nomber`,`apellido`,`numeroTelefono`,`correoElectronico`,`clave`,`direccion`) values 
+(1,'Merleen','Guardado',41942578,'merleen@gmail.com','123','1ra. calle zona 2 Boca Del Monte Guatemala.');
 
 /*Table structure for table `estado` */
 
@@ -78,7 +81,6 @@ CREATE TABLE `reservacion` (
   `fechaEntrega` date DEFAULT NULL,
   `total` decimal(10,0) DEFAULT NULL,
   `idCliente` int(11) DEFAULT NULL,
-  `idPago` int(11) DEFAULT NULL,
   `idEstadoRenta` int(11) DEFAULT NULL,
   `idVehiculo` int(11) DEFAULT NULL,
   PRIMARY KEY (`idReservacion`),
@@ -101,9 +103,12 @@ CREATE TABLE `tienda` (
   `direccion` varchar(200) DEFAULT NULL,
   `telefono` int(11) DEFAULT NULL,
   PRIMARY KEY (`idTienda`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `tienda` */
+
+insert  into `tienda`(`idTienda`,`direccion`,`telefono`) values 
+(1,'Zona 10',0);
 
 /*Table structure for table `vehiculo` */
 
@@ -112,16 +117,25 @@ DROP TABLE IF EXISTS `vehiculo`;
 CREATE TABLE `vehiculo` (
   `idVehiculo` int(11) NOT NULL AUTO_INCREMENT,
   `modelo` year(4) DEFAULT NULL,
-  `marca` int(11) DEFAULT NULL,
+  `marca` char(20) DEFAULT NULL,
   `linea` char(50) DEFAULT NULL,
   `idTienda` int(11) DEFAULT NULL,
   `estado` tinyint(1) DEFAULT NULL,
+  `precio` decimal(20,0) DEFAULT NULL,
+  `descripcion` varchar(200) DEFAULT NULL,
+  `imagen` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`idVehiculo`),
   KEY `idTienda` (`idTienda`),
   CONSTRAINT `vehiculo_ibfk_1` FOREIGN KEY (`idTienda`) REFERENCES `tienda` (`idTienda`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `vehiculo` */
+
+insert  into `vehiculo`(`idVehiculo`,`modelo`,`marca`,`linea`,`idTienda`,`estado`,`precio`,`descripcion`,`imagen`) values 
+(1,2024,'Mitsubishi','Mirage',1,1,150,'Si busca ahorrar gasolonina, este vehiculo 10 km por galon, cuatro puertas, dos bolasas de aire, disponieble automatico y mecanico, aire acondicionado y caben 4 personas. Economico.','https://assets.gcs.ehi.com/content/enterprise_cros/data/vehicle/bookingCountries/US/CARS/ECAR.doi.768.high.imageSmallThreeQuarterNodePath.png/1714589682126.png'),
+(2,2023,'Nissan','Versa',1,1,200,'Este vehiculo hace 8 km por galon, cuatro puertas, cuatro bolasas de aire, disponieble automatico y mecanico, aire acondicionado y caben 4 personas. Compacto.','https://assets.gcs.ehi.com/content/enterprise_cros/data/vehicle/bookingCountries/US/CARS/CCAR.doi.768.high.imageSmallThreeQuarterNodePath.png/1714590227456.png'),
+(3,2024,'Toyota','Corola',1,1,225,'Este vehiculo hace 8 km por galon, cuatro puertas, cuatro bolasas de aire, disponieble automatico y mecanico, aire acondicionado y caben 5 personas, Bluetooth. mediano.','https://assets.gcs.ehi.com/content/enterprise_cros/data/vehicle/bookingCountries/US/CARS/ICAR.doi.768.high.imageSmallThreeQuarterNodePath.png/1714578379698.png'),
+(4,2025,'Ford','Mustang',1,1,450,'Este vehiculo hace 5 km por galon, cuatro puertas, dos bolasas de aire, disponieble automatico y mecanico, aire acondicionado y caben 5 personas, Bluetooth. Convertible.','https://assets.gcs.ehi.com/content/enterprise_cros/data/vehicle/bookingCountries/US/CARS/STAR.doi.768.high.imageSmallThreeQuarterNodePath.png/1727199981315.png');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
