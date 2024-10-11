@@ -1,0 +1,22 @@
+<%- include("partials/_header") %>
+
+
+<div class="container">
+    Cotiza tus vehiculos
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <% if (listaVehiculos) { %> <% for(var i = 0; i < listaVehiculos.length; i++) { %>
+            <div class="col">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="<%= listaVehiculos[i].imagen %>" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title"><%= listaVehiculos[i].marca %> <%= listaVehiculos[i].linea %></h5>
+                        <p class="card-text"><%= listaVehiculos[i].descripcion %></p>
+                        <a href="/?id=<%= listaVehiculos[i].id %>" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+        <% } %> <% } %>
+    </div>
+</div>
+
+<%- include("partials/_footer") %>
