@@ -1,5 +1,5 @@
 import { pool } from "../db.js";
-
+/*
 export const renderCustomers = async (req, res) => {
   const [rows] = await pool.query("SELECT * FROM estado");
   res.render("customers", { customers: rows });
@@ -33,23 +33,29 @@ export const deleteCustomer = async (req, res) => {
     res.json({ message: "Customer deleted" });
   }
   res.redirect("/");
-};
+};*/
 
 
 
 //Nuevas Controladores para rutas
 export const renderHome = (req, res) => {
-  res.render("home");
+  res.render("home", {nombreUsuario: req.cookies.userName, error: req.cookies.error});
 };
 
 
-export const renderReserva = (req, res) => {
-  res.render("reserva");
+export const renderMisReserva = (req, res) => {
+  res.render("misReserva",  {nombreUsuario: req.cookies.userName, error: req.cookies.error});
 };
 
 export const renderCotizar = async (req, res) => {
   const [vehiculos] = await pool.query("select idVehiculo id, modelo, marca, linea, precio, concat(SUBSTRING(descripcion, 1, 50), \"...\") descripcion, imagen from vehiculo");
-  res.render("cotizar", {listaVehiculos: vehiculos});
+  res.render("cotizar", {listaVehiculos: vehiculos, nombreUsuario: req.cookies.userName, error: req.cookies.error});
+};
+
+export const renderReservar = async (req, res) => {
+  const vehiculoId = req.query.vehiculoId;
+  const [resultado] = await pool.query("select modelo, marca, linea, precio, descripcion, imagen from vehiculo where idVehiculo = " + vehiculoId);
+  res.render("reservar", {vehiculo: resultado[0], nombreUsuario: req.cookies.userName, error: req.cookies.error});
 };
 
 
@@ -61,13 +67,23 @@ export const iniciarSesion = async (req, res) => {
   console.log(resultado);
   console.log("validation:", (resultado.lengthd > 0));
   if (resultado.length> 0) {
-    res.locals.login = true;
-    res.locals.username = resultado[0].nombre;
-    
+    res.cookie('userName',resultado[0].nombre, { maxAge: 900000, httpOnly: true });
+    res.cookie('idCliente',resultado[0].idCliente, { maxAge: 900000, httpOnly: true });
+    res.cookie('telefono',resultado[0].telefono, { maxAge: 900000, httpOnly: true });
+    res.clearCookie("error");
     res.redirect("/");
   } else {
-    res.redirect("/?err");
+    res.cookie('error',"Usuario y/o clave incorrectos", { maxAge: 900000, httpOnly: true });
+    res.redirect("/");
   }
   
+};
+
+export const cerrarSesion = (req, res) => {
+  res.clearCookie("userName");
+  res.clearCookie("idCliente");
+  res.clearCookie("telefono");
+  res.clearCookie("error");
+  res.redirect("/");
 };
 

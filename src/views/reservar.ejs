@@ -1,0 +1,42 @@
+<%- include("partials/_header") %>
+
+
+<div class="container">
+    <div class="jumbotron">
+        <img src="<%= vehiculo.imagen %>"style="width:400px" class="rounded float-end" alt="...">
+        <h1 class="display-4">
+            <%= vehiculo.marca %> <%= vehiculo.linea %> 
+            <small class="text-muted">(<%= vehiculo.modelo %>)</small>
+        </h1>
+        <div class="badge bg-primary text-wrap">
+            $<%= vehiculo.precio %>
+        </div> 
+        <small class="text-muted">/ Por dia</small>
+        <p class="lead">
+            <%= vehiculo.descripcion %> 
+        </p>
+        <hr class="my-4">
+        <p>Realiza tu resarvacion ahora.</p>
+        <p class="lead">
+            <div class="row g-2">
+                <div class="col-md">
+                  <div class="form-floating">
+                    <input type="date" class="form-control" id="fechaInicio" placeholder="YYYY-MM-DD">
+                    <label for="floatingInputGrid">Fecha Inicio</label>
+                  </div>
+                </div>
+                <div class="col-md">
+                  <div class="form-floating">
+                    <input type="date" class="form-control" id="fechaFin" placeholder="YYYY-MM-DD">
+                    <label for="floatingSelectGrid">Fecha Fin</label>
+                  </div>
+                </div>
+            </div>
+            <br>
+            <a href="#" class="btn btn-primary">Realizar Reserva</a>
+        </p>
+    </div>
+</div>
+
+
+<%- include("partials/_footer") %>
