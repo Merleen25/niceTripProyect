@@ -29,12 +29,14 @@ CREATE TABLE `cliente` (
   `clave` char(50) DEFAULT NULL,
   `direccion` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`idCliente`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `cliente` */
 
 insert  into `cliente`(`idCliente`,`nomber`,`apellido`,`numeroTelefono`,`correoElectronico`,`clave`,`direccion`) values 
-(1,'Merleen','Guardado',41942578,'merleen@gmail.com','123','1ra. calle zona 2 Boca Del Monte Guatemala.');
+(1,'Merleen','Guardado',41942578,'merleen@gmail.com','123','1ra. calle zona 2 Boca Del Monte Guatemala.'),
+(2,'Vivi','Ruano',50665090,'vivi@gmail.com','123','8va, calle zona 1 9-20 Qetzaltenango.'),
+(3,'Ashby','Guardado',51356632,'ashby@yahoo.com','123','3ra. Avenida 8-99 zona 3, Peten ');
 
 /*Table structure for table `estado` */
 
@@ -103,12 +105,16 @@ CREATE TABLE `tienda` (
   `direccion` varchar(200) DEFAULT NULL,
   `telefono` int(11) DEFAULT NULL,
   PRIMARY KEY (`idTienda`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `tienda` */
 
 insert  into `tienda`(`idTienda`,`direccion`,`telefono`) values 
-(1,'Zona 10',0);
+(1,'Zona 10',56123),
+(2,'1 calle Zona 3, Quetzaltenango',54162386),
+(3,'6 Avenida 1-33 Zona 2, Chimaltenango',49853162),
+(4,'8va. Avenida Zona 3, Peten',55131623),
+(5,'4ta. calle 1-33 Zona 15 Guatemala',85426135);
 
 /*Table structure for table `vehiculo` */
 
@@ -127,15 +133,21 @@ CREATE TABLE `vehiculo` (
   PRIMARY KEY (`idVehiculo`),
   KEY `idTienda` (`idTienda`),
   CONSTRAINT `vehiculo_ibfk_1` FOREIGN KEY (`idTienda`) REFERENCES `tienda` (`idTienda`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `vehiculo` */
 
 insert  into `vehiculo`(`idVehiculo`,`modelo`,`marca`,`linea`,`idTienda`,`estado`,`precio`,`descripcion`,`imagen`) values 
-(1,2024,'Mitsubishi','Mirage',1,1,150,'Si busca ahorrar gasolonina, este vehiculo 10 km por galon, cuatro puertas, dos bolasas de aire, disponieble automatico y mecanico, aire acondicionado y caben 4 personas. Economico.','https://assets.gcs.ehi.com/content/enterprise_cros/data/vehicle/bookingCountries/US/CARS/ECAR.doi.768.high.imageSmallThreeQuarterNodePath.png/1714589682126.png'),
-(2,2023,'Nissan','Versa',1,1,200,'Este vehiculo hace 8 km por galon, cuatro puertas, cuatro bolasas de aire, disponieble automatico y mecanico, aire acondicionado y caben 4 personas. Compacto.','https://assets.gcs.ehi.com/content/enterprise_cros/data/vehicle/bookingCountries/US/CARS/CCAR.doi.768.high.imageSmallThreeQuarterNodePath.png/1714590227456.png'),
-(3,2024,'Toyota','Corola',1,1,225,'Este vehiculo hace 8 km por galon, cuatro puertas, cuatro bolasas de aire, disponieble automatico y mecanico, aire acondicionado y caben 5 personas, Bluetooth. mediano.','https://assets.gcs.ehi.com/content/enterprise_cros/data/vehicle/bookingCountries/US/CARS/ICAR.doi.768.high.imageSmallThreeQuarterNodePath.png/1714578379698.png'),
-(4,2025,'Ford','Mustang',1,1,450,'Este vehiculo hace 5 km por galon, cuatro puertas, dos bolasas de aire, disponieble automatico y mecanico, aire acondicionado y caben 5 personas, Bluetooth. Convertible.','https://assets.gcs.ehi.com/content/enterprise_cros/data/vehicle/bookingCountries/US/CARS/STAR.doi.768.high.imageSmallThreeQuarterNodePath.png/1727199981315.png');
+(1,2024,'2024','Mirage',1,1,150,'Si busca ahorrar gasolonina, este vehiculo 10 km por galon, cuatro puertas, dos bolasas de aire, disponieble automatico y mecanico, aire acondicionado y caben 4 personas. Economico.','https://assets.gcs.ehi.com/content/enterprise_cros/data/vehicle/bookingCountries/US/CARS/ECAR.doi.768.high.imageSmallThreeQuarterNodePath.png/1714589682126.png'),
+(2,2023,'Nissan','Versa',2,1,200,'Este vehiculo hace 8 km por galon, cuatro puertas, cuatro bolasas de aire, disponieble automatico y mecanico, aire acondicionado y caben 4 personas. Compacto.','https://assets.gcs.ehi.com/content/enterprise_cros/data/vehicle/bookingCountries/US/CARS/CCAR.doi.768.high.imageSmallThreeQuarterNodePath.png/1714590227456.png'),
+(3,2024,'Toyota','Corola',2,1,225,'Este vehiculo hace 8 km por galon, cuatro puertas, cuatro bolasas de aire, disponieble automatico y mecanico, aire acondicionado y caben 5 personas, Bluetooth. mediano.','https://assets.gcs.ehi.com/content/enterprise_cros/data/vehicle/bookingCountries/US/CARS/ICAR.doi.768.high.imageSmallThreeQuarterNodePath.png/1714578379698.png'),
+(4,2025,'Ford','Mustang',3,1,450,'Este vehiculo hace 5 km por galon, cuatro puertas, dos bolasas de aire, disponieble automatico y mecanico, aire acondicionado y caben 5 personas, Bluetooth. Convertible.','https://assets.gcs.ehi.com/content/enterprise_cros/data/vehicle/bookingCountries/US/CARS/STAR.doi.768.high.imageSmallThreeQuarterNodePath.png/1727199981315.png'),
+(5,2024,'Nissan','Rogue',4,1,500,'Este vehiculo hace 6 km por galon, cuatro puertas, cuatro bolasas de aire, disponieble automatico y mecanico, aire acondicionado y caben 5 personas, Bluetooth. SUV Intermedia.','https://assets.gcs.ehi.com/content/enterprise_cros/data/vehicle/bookingCountries/US/SUVS/IFAR.doi.352.high.imageSmallThreeQuarterNodePath.png/1714578511986.png'),
+(6,2024,'Chevrolet','Equinox',1,1,550,'Este vehiculo hace 5 km por galon, cuatro puertas, cinco bolasas de aire, disponieble automatico y mecanico, aire acondicionado y caben 5 personas, Bluetooth. SUV Estandar.','https://assets.gcs.ehi.com/content/enterprise_cros/data/vehicle/bookingCountries/US/SUVS/SFAR.doi.768.high.imageSmallThreeQuarterNodePath.png/1722271524866.png'),
+(7,2024,'Ford','Expedition',5,1,600,'Este vehiculo hace 5 km por galon, cuatro puertas, cinco bolasas de aire, disponieble automatico y mecanico, aire acondicionado y caben 5 personas, Bluetooth. SUV Full-Size.','https://assets.gcs.ehi.com/content/enterprise_cros/data/vehicle/bookingCountries/US/SUVS/FFAR.doi.768.high.imageSmallThreeQuarterNodePath.png/1722269564773.png'),
+(9,2024,'Chrysler','Pacifica',2,1,650,'Este vehiculo hace 8 km por galon, cuatro puertas, cinco bolasas de aire, disponieble automatico, aire acondicionado y caben 7 personas, AM/FM Radio Estereo. 7 pasajeros Minivan.','https://assets.gcs.ehi.com/content/enterprise_cros/data/vehicle/bookingCountries/US/VANS/MVAR.doi.768.high.imageSmallThreeQuarterNodePath.png/1618263096675.png'),
+(10,2025,'Toyota','Sienna',3,0,700,'Este vehiculo hace 7 km por galon, cuatro puertas, cinco bolasas de aire, disponieble automatico, aire acondicionado y caben 8 personas, AM/FM Radio Estereo. 8 pasajeros Minivan.','https://assets.gcs.ehi.com/content/enterprise_cros/data/vehicle/bookingCountries/US/VANS/SVAR.doi.768.high.imageSmallThreeQuarterNodePath.png/1714584597484.png'),
+(11,2023,'Ford','Transit',4,0,750,'Este vehiculo hace 6.5 km por galon, cuatro puertas, 9 bolasas de aire, disponieble automatico, aire acondicionado y caben 15 personas, AM/FM Radio Estereo. 15 pasajeros van.','https://assets.gcs.ehi.com/content/enterprise_cros/data/vehicle/bookingCountries/US/VANS/FVAR.doi.768.high.imageSmallThreeQuarterNodePath.png/1714590124481.png');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
