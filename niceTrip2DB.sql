@@ -110,7 +110,7 @@ CREATE TABLE `tienda` (
 /*Data for the table `tienda` */
 
 insert  into `tienda`(`idTienda`,`direccion`,`telefono`) values 
-(1,'Zona 10',56123),
+(1,'9na. Avenida 5-22 Zona 10 Guatemala',56123),
 (2,'1 calle Zona 3, Quetzaltenango',54162386),
 (3,'6 Avenida 1-33 Zona 2, Chimaltenango',49853162),
 (4,'8va. Avenida Zona 3, Peten',55131623),
