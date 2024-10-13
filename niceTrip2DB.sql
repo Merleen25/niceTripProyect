@@ -153,3 +153,19 @@ insert  into `vehiculo`(`idVehiculo`,`modelo`,`marca`,`linea`,`idTienda`,`estado
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+
+
+DELIMITER //
+CREATE PROCEDURE crearReserva (IdCliente int, IdVehiculo int, FechaInicio date, FechaFin date, TotalPago decimal, Autorizacion int)
+   BEGIN
+	   START TRANSACTION;
+	   INSERT INTO reservacion (fechaInicio, fechaEntrega, total, idCliente, idEstadoRenta, idVehiculo)
+	   VALUES (FechaInicio, FechaFin, TotalPago, IdCliente, 1, IdVehiculo);
+	   INSERT INTO pago (monto, fechaPago, noAutorizacion, idReservacion)
+	   VALUES (TotalPago, CURRENT_DATE(), Autorizacion, LAST_INSERT_ID());
+	   -- UPDATE vehiculo SET estado = 0 WHERE idVehiculo = IdVehiculo;
+	   COMMIT;
+   END//
+DELIMITER ;
+

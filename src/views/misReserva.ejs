@@ -2,14 +2,54 @@
 
 
 <div class="container">
-    Reservaciones
-    <div class="card" style="width: 18rem;">
-        <img class="card-img-top" src="https://www.enterprise.com/content/dam/global-vehicle-images/cars/FORD_FUSION_2020.png" alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
+    <h1>Mis Reservaciones</h1>
+    <div class="jumbotron bg-secondary bg-gradient rounded p-3">
+        <a href="/reservas-excel?cliente=<%= idCliente %>" class="btn btn-success mb-2">Generar Reporte de Reservas</a>
+        <table class="table table-striped bg-light rounded">
+            <thead>
+                <tr>
+                    <th scope="col">Número de Reserva</th>
+                    <th scope="col">Vehiculo</th>
+                    <th scope="col">Fecha Inicio</th>
+                    <th scope="col">Fecha Fin</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (misReservas) { %> <% for(var i = 0; i < misReservas.length; i++) { %>
+                    <tr>
+                        <th scope="row">#<%= misReservas[i].idReservacion %></th>
+                        <td><%= misReservas[i].vehiculo %></td>
+                        <td><%= misReservas[i].inicio %></td>
+                        <td><%= misReservas[i].fin %></td>
+                        <td><%= misReservas[i].estado %></td>
+                        <td>
+                            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#reciboModal<%= misReservas[i].idReservacion %>">Recibo</button>
+                            <button type="button" class="btn btn-outline-danger">Cancelar</button>
+
+                            <div class="modal fade" id="reciboModal<%= misReservas[i].idReservacion %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Recibo de Reserva</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body" id="reciboPDF<%= misReservas[i].idReservacion %>">
+                                            <%- include("reciboPDF", {reserva: misReservas[i]}) %>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                            <a href="/imprimir?idReservacion=<%= misReservas[i].idReservacion %>" target="_blank" class="btn btn-primary">Imprimir</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                <% } %> <% } %>
+            </tbody>
+        </table>
     </div>
 </div>
 
