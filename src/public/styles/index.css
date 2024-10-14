@@ -1,0 +1,38 @@
+.carousel-item img {
+    height: 20rem; /* Asegura que las imágenes tengan la misma altura */
+    object-fit: cover; /* Recorta las imágenes para que encajen en el contenedor */
+}
+.carousel-item.active .texto-imagen {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 1.5rem;
+    background: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente para mejor legibilidad */
+    padding: 1px 1px;
+    border-radius: 10px;
+}
+.carousel-inner {
+    height: 20rem;
+}
+.carousel-item {
+    transition-duration: 1.5s; /* Duración de la transición (2 segundos) */
+  }
+
+.bg-custom {
+background-color: #052a61 !important; /* Color personalizado de fondo */
+}
+
+.text-custom {
+color: #000; /* Color personalizado de texto */
+}
+.text-justificado {
+    text-align: justify;
+}
+.navColor{
+    background-color: #052a61 !important;
+}
+.textColor{
+    color: white !important;  
+}
