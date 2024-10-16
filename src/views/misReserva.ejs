@@ -25,26 +25,54 @@
                         <td><%= misReservas[i].fin %></td>
                         <td><%= misReservas[i].estado %></td>
                         <td>
-                            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#reciboModal<%= misReservas[i].idReservacion %>">Recibo</button>
-                            <button type="button" class="btn btn-outline-danger">Cancelar</button>
+                            <% if (misReservas[i].idEstadoRenta != 3) { %> 
+                                <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#reciboModal<%= misReservas[i].idReservacion %>">Recibo</button>
+                                <button 
+                                    type="button" 
+                                    class="btn btn-outline-danger" 
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#cancelarModal<%= misReservas[i].idReservacion %>"
+                                    onclick="condicionCancelacion('infoCancelar<%= misReservas[i].idReservacion %>', '<%= misReservas[i].fIni %>', <%= misReservas[i].total %>)"
+                                    >
+                                    Cancelar
+                                </button>
 
-                            <div class="modal fade" id="reciboModal<%= misReservas[i].idReservacion %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Recibo de Reserva</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body" id="reciboPDF<%= misReservas[i].idReservacion %>">
-                                            <%- include("reciboPDF", {reserva: misReservas[i]}) %>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                            <a href="/imprimir?idReservacion=<%= misReservas[i].idReservacion %>" target="_blank" class="btn btn-primary">Imprimir</a>
+                                <div class="modal fade" id="cancelarModal<%= misReservas[i].idReservacion %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Notas de Cancelacion</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body" id="infoCancelar<%= misReservas[i].idReservacion %>">
+                                                Al cancelar esta 
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                <a href="/cancelar?idReservacion=<%= misReservas[i].idReservacion %>" target="_blank" class="btn btn-danger">Cancelar</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+
+                                <div class="modal fade" id="reciboModal<%= misReservas[i].idReservacion %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Recibo de Reserva</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body" id="reciboPDF<%= misReservas[i].idReservacion %>">
+                                                <%- include("reciboPDF", {reserva: misReservas[i]}) %>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                <a href="/imprimir?idReservacion=<%= misReservas[i].idReservacion %>" target="_blank" class="btn btn-primary">Imprimir</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <% } %>
                         </td>
                     </tr>
                 <% } %> <% } %>

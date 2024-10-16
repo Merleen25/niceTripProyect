@@ -21,7 +21,7 @@
   }
 
 .bg-custom {
-background-color: #052a61 !important; /* Color personalizado de fondo */
+background-color: #052a61; /* Color personalizado de fondo */
 }
 
 .text-custom {
@@ -31,7 +31,7 @@ color: #000; /* Color personalizado de texto */
     text-align: justify;
 }
 .navColor{
-    background-color: #052a61 !important;
+    background-color: #052a61;
 }
 .textColor{
     color: white !important;  
