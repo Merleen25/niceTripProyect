@@ -2,41 +2,119 @@
 
 
 <div class="container">
-    <div class="jumbotron">
-        <img src="<%= vehiculo.imagen %>"style="width:400px" class="rounded float-end" alt="...">
-        <h1 class="display-4">
-            <%= vehiculo.marca %> <%= vehiculo.linea %> 
-            <small class="text-muted">(<%= vehiculo.modelo %>)</small>
-        </h1>
-        <div class="badge bg-primary text-wrap">
-            $<%= vehiculo.precio %>
-        </div> 
-        <small class="text-muted">/ Por dia</small>
-        <p class="lead">
-            <%= vehiculo.descripcion %> 
-        </p>
-        <hr class="my-4">
-        <p>Realiza tu resarvacion ahora.</p>
-        <p class="lead">
-            <div class="row g-2">
-                <div class="col-md">
-                  <div class="form-floating">
-                    <input type="date" class="form-control" id="fechaInicio" placeholder="YYYY-MM-DD">
-                    <label for="floatingInputGrid">Fecha Inicio</label>
-                  </div>
-                </div>
-                <div class="col-md">
-                  <div class="form-floating">
-                    <input type="date" class="form-control" id="fechaFin" placeholder="YYYY-MM-DD">
-                    <label for="floatingSelectGrid">Fecha Fin</label>
-                  </div>
-                </div>
-            </div>
-            <br>
-            <a href="#" class="btn btn-primary">Realizar Reserva</a>
-        </p>
+  <div class="jumbotron">
+      <img src="<%= vehiculo.imagen %>"style="width:400px" class="rounded float-end" alt="...">
+      <h1 class="display-4">
+          <%= vehiculo.marca %> <%= vehiculo.linea %> 
+          <small class="text-muted">(<%= vehiculo.modelo %>)</small>
+      </h1>
+      <div class="badge bg-primary text-wrap">
+          $<%= vehiculo.precio %>
+      </div> 
+      <small class="text-muted">/ Por dia</small>
+      <p class="lead">
+          <%= vehiculo.descripcion %> 
+      </p>
+      <p>
+        Estado Actual:
+        <% if (vehiculo.estado == 1) { %>
+          <span class="badge bg-success">Disponible</span>
+        <% } else { %>
+          <span class="badge bg-warning">En uso</span>
+        <% } %>
+      </p>
+      <hr class="my-4">
+      <h3 class="display-6">Tienda</h3>
+      <p class="lead">
+        <span class="fw-bold">Dirección:</span> <%= vehiculo.direccion %> 
+        <br>
+        <span class="fw-bold">Teléfono:</span> <%= vehiculo.telefono %> 
+    </p>
+      <hr class="my-4">
+  </div>
+  <form class="container float-start">
+    <p>Realiza tu resarvacion ahora</p>
+    <div class="row g-2">
+      <div class="col-md-4">
+        <div class="form-floating">
+          <input type="hidden" class="form-control" id="idCliente" value="<%= idCliente %>" readonly>
+          <input type="hidden" class="form-control" id="idVehiculo" value="<%= idVehiculo %>" readonly>
+          <input type="date" class="form-control" id="fechaInicio" min="<%= fechaHoy %>" value="<%= fechaHoy %>" placeholder="YYYY-MM-DD" onchange="cambiarFechaInicio()">
+          <label for="floatingInputGrid">Fecha Inicio</label>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-floating">
+          <input type="date" class="form-control" id="fechaFin" min="<%= fechaManiana %>" value="<%= fechaManiana %>" placeholder="YYYY-MM-DD" onchange="calcularDias()">
+          <label for="floatingSelectGrid">Fecha Fin</label>
+        </div>
+      </div>
     </div>
+    <div class="row mt-2 g-2">
+      <div class="col-md-4">
+        <div class="form-floating">
+          <input type="text" class="form-control" id="noDias" value="1" readonly>
+          <label for="noDias">Número de Días</label>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-floating">
+          <input type="text" class="form-control" id="totalPagar" value="$<%= vehiculo.precio %>" data-precio-dia="<%= vehiculo.precio %>" data-total-pagar="<%= vehiculo.precio %>" readonly>
+          <label for="totalPagar">Total a Pagar</label>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-2 g-2">
+      <div class="col-md-4">
+        <div class="form-floating">
+          <input type="text" class="form-control" id="creditCard" pattern="[0-9]" min="16" maxlength="16" placeholder="0000-0000-0000-0000" required>
+          <label for="creditCard">Número Tarjeta
+            <img src="https://tactilesystems.com.au/wp-content/uploads/2020/09/Visa-mastercard-Logo.jpg" style="width: 75px;">
+          </label>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-floating">
+          <input type="month" class="form-control" id="fechaTarjeta" required>
+          <label for="fechaTarjeta">Fecha Vence</label>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-floating">
+          <input type="text" class="form-control" id="cvv" required maxlength="3">
+          <label for="cvv">CVV</label>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-2 g-2">
+      <div class="col-md-8">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="terminosCondiciones">
+          <label class="form-check-label" for="terminosCondiciones">
+            He leido y acepto los <a href="/politicas" target="_blank">terminos y Condiciones</a>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div>
+      
+      <button type="button" onclick="guardarReserva()" id="guardarReservaButton" class="btn btn-primary mt-2">Realizar Reserva</button>
+    </div>
+  </form>
 </div>
 
-
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <%- include("partials/_footer") %>
