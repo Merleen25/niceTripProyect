@@ -130,9 +130,9 @@ export const renderMisReserva = async (req, res) => {
   } else {
     const clienteId = req.cookies.idCliente;
     const query = `SELECT r.idReservacion, DATE_FORMAT(fechaInicio,'%d/%m/%Y') inicio, DATE_FORMAT(fechaEntrega,'%d/%m/%Y') fin, 
-                      total, CONCAT(v.marca, " ", v.linea, " (", v.modelo, ")") vehiculo, e.estado, v.imagen,
+                      total, CONCAT(v.marca, " ", v.linea, " (", v.modelo, ")") vehiculo, e.estado, v.imagen, r.idEstadoRenta, 
                       CONCAT(c.nomber, " ", c.apellido) nombre, c.correoElectronico correo, c.numeroTelefono telefono, c.direccion,
-                      t.direccion direccionTienda, t.telefono telefonoTienda, p.noAutorizacion 
+                      t.direccion direccionTienda, t.telefono telefonoTienda, p.noAutorizacion, DATE_FORMAT(fechaInicio,'%Y-%m-%d') fIni
                     FROM reservacion r 
                     INNER JOIN estado e ON e.idEstadoRenta = r.idEstadoRenta 
                     INNER JOIN vehiculo v ON v.idVehiculo = r.idVehiculo 
@@ -162,7 +162,6 @@ export const renderPrintRecibo = async (req, res) => {
                     INNER JOIN pago p ON p.idReservacion = r.idReservacion 
                     WHERE r.idReservacion = ` + idReservacion;
     const [resultado] = await pool.query(query);
-    console.log("query:", resultado);
     res.render("reciboPdfPrint",  {reserva: resultado[0]});
   }
 };
@@ -263,5 +262,16 @@ export const generarExcel = async (req, res) => {
 };
 
 export const renderRecibo = (req, res) => {
-  res.render('/reciboPdf');
+  res.render('reciboPdf');
+};
+
+export const cancelarReserva = async (req, res) => {
+  const reservacion = req.query.idReservacion;
+  const query = "update reservacion set idEstadoRenta = 3 where idReservacion = "+reservacion;
+  await pool.query(query);
+  res.redirect('mis-reservas');
+};
+
+export const renderPoliticas = (req, res) => {
+  res.render("poli", {idCliente: req.cookies.idCliente, nombreUsuario: req.cookies.userName, error: req.cookies.error});
 };

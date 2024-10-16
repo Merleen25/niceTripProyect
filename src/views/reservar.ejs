@@ -67,7 +67,7 @@
     <div class="row mt-2 g-2">
       <div class="col-md-4">
         <div class="form-floating">
-          <input type="text" class="form-control" id="creditCard" placeholder="0000-0000-0000-0000" required>
+          <input type="text" class="form-control" id="creditCard" pattern="[0-9]" min="16" maxlength="16" placeholder="0000-0000-0000-0000" required>
           <label for="creditCard">Número Tarjeta
             <img src="https://tactilesystems.com.au/wp-content/uploads/2020/09/Visa-mastercard-Logo.jpg" style="width: 75px;">
           </label>
@@ -86,7 +86,20 @@
         </div>
       </div>
     </div>
-    <button type="button" onclick="guardarReserva()" id="guardarReservaButton" class="btn btn-primary mt-2">Realizar Reserva</button>
+    <div class="row mt-2 g-2">
+      <div class="col-md-8">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="terminosCondiciones">
+          <label class="form-check-label" for="terminosCondiciones">
+            He leido y acepto los <a href="/politicas" target="_blank">terminos y Condiciones</a>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div>
+      
+      <button type="button" onclick="guardarReserva()" id="guardarReservaButton" class="btn btn-primary mt-2">Realizar Reserva</button>
+    </div>
   </form>
 </div>
 

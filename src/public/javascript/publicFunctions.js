@@ -30,7 +30,9 @@ const guardarReserva = () => {
     const creditCard = $("#creditCard").val();
     const fechaTarjeta = $("#fechaTarjeta").val();
     const cvv = $("#cvv").val();
-    if (creditCard && fechaTarjeta && cvv){
+    if (!$("#terminosCondiciones").prop("checked")) {
+        alert("Debe aceptar los terminos y condiciones de la reserva");
+    } else if (containsOnlyDigits(creditCard) && (fechaTarjeta) && containsOnlyDigits(cvv)){
         $("#guardarReservaButton").prop('disabled', true);
         const fIniEle = $("#fechaInicio");
         const fFinEle = $("#fechaFin");
@@ -56,6 +58,8 @@ const guardarReserva = () => {
                 //console.log('data:', data);
             }
         });
+    } else {
+        alert('ERROR: Por favor verifique los datos de su tarjeta');
     }
 }
 
@@ -66,3 +70,23 @@ function printPageArea(areaID){
     window.print();
     document.body.innerHTML = originalContent;
 }
+
+function containsOnlyDigits(str) {
+    return /^\d+$/.test(str);
+}
+
+const condicionCancelacion = (id, fechaInicio, montoTotal) => {
+    const dateInicio = moment(fechaInicio);
+    const dateHoy = moment(new Date().toISOString().slice(0,10));
+    const dias = dateInicio.diff(dateHoy, 'days');
+    let cargoPorCancelacion = 0;
+    let content = 'Al cancelar esta reservación usted no tendrá ningún cargo (<b>Q.0 de penalizacion</b>), para más información revisar nuestros términos y condiciones <a href="/politicas">aquí.</a>';
+    if (dias == 1) {
+        cargoPorCancelacion = montoTotal * 0.3;
+        content = "Al cancelar esta reservación usted será penalizado con un cobro de 30% del precio total de la renta (<b>Q."+cargoPorCancelacion+" de penalizacion</b>), para más información revisar nuestros términos y condiciones <a href='/politicas'>aquí.</a>";
+    } else if (dias < 1) {
+        cargoPorCancelacion = montoTotal * 0.5;
+        content = 'Al cancelar esta reservación usted será penalizado con un cobro de 50% del precio total de la renta(<b>Q.'+cargoPorCancelacion+' de penalizacion</b>), para más información revisar nuestros términos y condiciones <a href="/politicas">aquí.</a>';
+    }
+    $("#"+id).html(content);
+};
