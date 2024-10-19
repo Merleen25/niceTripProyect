@@ -90,3 +90,56 @@ const condicionCancelacion = (id, fechaInicio, montoTotal) => {
     }
     $("#"+id).html(content);
 };
+
+
+
+const guardarPerfil = () => {
+    const correoElectronicoEle = $("#correoProfile").val();
+    const telefonoValidation = containsOnlyDigits($("#numerTelefonoProfile").val());
+    if (!telefonoValidation){
+        alert('Numero de telefono invalido.');
+    }
+    else if (!validarEmail(correoElectronicoEle)) {
+        alert("Debe validar su correo electrónico.");
+    } else {
+        $("#guardarPerfilButton").prop('disabled', true);
+        const nombreEle = $("#nombreProfile");
+        const apellidoEle = $("#apellidoProfile");
+        const telefonoEle = $("#numerTelefonoProfile");
+        const direccionEle = $("#direccionProfile");
+        const passwordEle = $("#passwordProfile");
+
+        const bodyReq = {
+            nombre: nombreEle.val(),
+            apellido: apellidoEle.val(),
+            numeroTelefono: telefonoEle.val(),
+            correoElectronico: correoElectronicoEle,
+            direccion: direccionEle.val(),
+            clave: passwordEle.val(),
+        };
+
+        $.ajax({
+            type: "POST",
+            url: "/guardarPerfil",
+            data: bodyReq,
+            success: (data) => {
+                window.location.href = "/";
+            },
+            error: (xhr, status, error) => {
+                alert("ERROR: Algo salió mal.");
+                console.error(error);
+            }
+        });
+    }
+}
+
+function validarEmail(email){
+                
+	var validEmail =  /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
+
+	if( validEmail.test(email) ){
+		return true;
+	}else{
+		return false;
+	}
+} 

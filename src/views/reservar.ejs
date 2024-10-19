@@ -9,7 +9,7 @@
           <small class="text-muted">(<%= vehiculo.modelo %>)</small>
       </h1>
       <div class="badge bg-primary text-wrap">
-          $<%= vehiculo.precio %>
+          Q.<%= vehiculo.precio %>
       </div> 
       <small class="text-muted">/ Por dia</small>
       <p class="lead">
@@ -59,7 +59,7 @@
       </div>
       <div class="col-md-4">
         <div class="form-floating">
-          <input type="text" class="form-control" id="totalPagar" value="$<%= vehiculo.precio %>" data-precio-dia="<%= vehiculo.precio %>" data-total-pagar="<%= vehiculo.precio %>" readonly>
+          <input type="text" class="form-control" id="totalPagar" value="Q.<%= vehiculo.precio %>" data-precio-dia="<%= vehiculo.precio %>" data-total-pagar="<%= vehiculo.precio %>" readonly>
           <label for="totalPagar">Total a Pagar</label>
         </div>
       </div>

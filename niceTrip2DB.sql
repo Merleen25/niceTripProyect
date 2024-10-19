@@ -169,3 +169,12 @@ CREATE PROCEDURE crearReserva (IdCliente int, IdVehiculo int, FechaInicio date, 
    END//
 DELIMITER ;
 
+DELIMITER //
+CREATE PROCEDURE crearCliente (p_nombre CHAR(50), p_apellido CHAR(50), p_numeroTelefono char(15), p_correoElectronico CHAR(150), p_clave CHAR(50), p_direccion VARCHAR(200))
+  BEGIN
+      START TRANSACTION;
+      INSERT INTO cliente (nombre, apellido, numeroTelefono, correoElectronico, clave, direccion, Estado)
+      VALUES (p_nombre, p_apellido, p_numeroTelefono, p_correoElectronico, p_clave, p_direccion, 1);
+      COMMIT;
+  END //
+DELIMITER ;

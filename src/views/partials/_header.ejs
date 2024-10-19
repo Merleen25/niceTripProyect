@@ -35,12 +35,13 @@
                 <form class="dropdown-menu p-4" aria-labelledby="navbarDropdownMenuLink" action="/login"  method="POST" style="width: 200px;">
                   <div class="form-group">
                     <label for="correo">Correo</label>
-                    <input type="email" class="form-control" name="correo" id="correo" placeholder="c@test.com">
+                    <input type="email" class="form-control" name="correo" id="correo" placeholder="ejemplo@test.com">
                   </div>
                   <div class="form-group">
                     <label for="clave">Clave</label>
                     <input type="password" class="form-control" name="clave" id="clave" placeholder="****">
                   </div>
+                  <a href="#" class="" data-bs-toggle="modal" data-bs-target="#registrarseModal">Registrarse</a> <br>
                   <button type="submit" class="btn btn-primary mt-2">Iniciar</button>
                 </form>
                 <% } else { %>
@@ -63,3 +64,65 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
       <% } %>
+
+      <div class="modal fade" id="registrarseModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Rgistro</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div>
+                  <form class="container float-start">
+                    <p>Mejores beneficios al registrarte!</p>
+                    <div class="row mt-2 g-2">
+                      <div class="col-md-6">
+                        <div class="form-floating">
+                          <input type="text" class="form-control" id="nombreProfile" required>
+                          <label for="noDias">Nombre</label>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-floating">
+                          <input type="text" class="form-control" id="apellidoProfile" required>
+                          <label for="totalPagar">Apellido</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mt-2 g-2">
+                      <div class="col-md-7">
+                        <div class="form-floating">
+                          <input type="text" class="form-control" id="direccionProfile" required>
+                          <label for="direccion">direccion
+                          </label>
+                        </div>
+                      </div>
+                      <div class="col-md-5">
+                        <div class="form-floating">
+                          <input type="text" class="form-control" id="numerTelefonoProfile" pattern="[0-9]" required>
+                          <label for="numeroTelefono">Numero Telefono</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mt-2 g-2">
+                      <div class="col-md-6">
+                        <div class="form-floating">
+                          <input type="text" class="form-control" id="correoProfile" placeholder="eje@test.com" required>
+                          <label for="correo">Correo Electronico</label>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-floating">
+                          <input type="password" class="form-control" id="passwordProfile" placeholder="****" required> 
+                          <label for="password">Contraseña</label>
+                        </div>
+                      </div>
+                    </div>
+                      <div>
+                        <button type="button" onclick="guardarPerfil()" id="guardarPerfilButton" class="btn btn-primary mt-2 mb-2">Guardar Perfil</button>
+                      </div>
+                  </form>
+                </div>
+            </div>
+        </div>
+      </div>
