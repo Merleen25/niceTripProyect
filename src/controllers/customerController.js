@@ -1,42 +1,6 @@
 import { pool } from "../db.js";
 import PDFDocument from 'pdfkit';
 import ExcelJS from 'exceljs';
-/*
-export const renderCustomers = async (req, res) => {
-  const [rows] = await pool.query("SELECT * FROM estado");
-  res.render("customers", { customers: rows });
-};
-
-export const createCustomers = async (req, res) => {
-  const newCustomer = req.body;
-  await pool.query("INSERT INTO customer set ?", [newCustomer]);
-  res.redirect("/");
-};
-
-export const editCustomer = async (req, res) => {
-  const { id } = req.params;
-  const [result] = await pool.query("SELECT * FROM customer WHERE id = ?", [
-    id,
-  ]);
-  res.render("customers_edit", { customer: result[0] });
-};
-
-export const updateCustomer = async (req, res) => {
-  const { id } = req.params;
-  const newCustomer = req.body;
-  await pool.query("UPDATE customer set ? WHERE id = ?", [newCustomer, id]);
-  res.redirect("/");
-};
-
-export const deleteCustomer = async (req, res) => {
-  const { id } = req.params;
-  const result = await pool.query("DELETE FROM customer WHERE id = ?", [id]);
-  if (result.affectedRows === 1) {
-    res.json({ message: "Customer deleted" });
-  }
-  res.redirect("/");
-};*/
-
 
 
 // Funcion para generar excel
@@ -76,24 +40,6 @@ function generateXLS(data) {
       });
       // Increment the row index
       rowIndex += data.length;
-
-    // Merge cells for the logo
-    /*worksheet.mergeCells(
-      `A1:${String.fromCharCode(65 + worksheet.columns.length - 1)}1`
-    );
-
-    const image = workbook.addImage({
-      base64: LOGO_64, //replace it your image (base 64 in this case)
-      extension: "png",
-    });
-
-    worksheet.addImage(image, {
-      tl: { col: 0, row: 0 },
-      ext: { width: 60, height: 40 },
-    });
-
-    worksheet.getRow(1).height = 40;
-    */
     
     // Define the border style
     const borderStyle = {
@@ -131,7 +77,7 @@ export const renderMisReserva = async (req, res) => {
     const clienteId = req.cookies.idCliente;
     const query = `SELECT r.idReservacion, DATE_FORMAT(fechaInicio,'%d/%m/%Y') inicio, DATE_FORMAT(fechaEntrega,'%d/%m/%Y') fin, 
                       total, CONCAT(v.marca, " ", v.linea, " (", v.modelo, ")") vehiculo, e.estado, v.imagen, r.idEstadoRenta, 
-                      CONCAT(c.nomber, " ", c.apellido) nombre, c.correoElectronico correo, c.numeroTelefono telefono, c.direccion,
+                      CONCAT(c.nombre, " ", c.apellido) nombre, c.correoElectronico correo, c.numeroTelefono telefono, c.direccion,
                       t.direccion direccionTienda, t.telefono telefonoTienda, p.noAutorizacion, DATE_FORMAT(fechaInicio,'%Y-%m-%d') fIni
                     FROM reservacion r 
                     INNER JOIN estado e ON e.idEstadoRenta = r.idEstadoRenta 
@@ -152,7 +98,7 @@ export const renderPrintRecibo = async (req, res) => {
     const idReservacion = req.query.idReservacion;
     const query = `SELECT r.idReservacion, DATE_FORMAT(fechaInicio,'%d/%m/%Y') inicio, DATE_FORMAT(fechaEntrega,'%d/%m/%Y') fin, 
                       total, CONCAT(v.marca, " ", v.linea, " (", v.modelo, ")") vehiculo, e.estado, v.imagen,
-                      CONCAT(c.nomber, " ", c.apellido) nombre, c.correoElectronico correo, c.numeroTelefono telefono, c.direccion,
+                      CONCAT(c.nombre, " ", c.apellido) nombre, c.correoElectronico correo, c.numeroTelefono telefono, c.direccion,
                       t.direccion direccionTienda, t.telefono telefonoTienda, p.noAutorizacion 
                     FROM reservacion r 
                     INNER JOIN estado e ON e.idEstadoRenta = r.idEstadoRenta 
@@ -192,7 +138,7 @@ export const renderReservar = async (req, res) => {
 
 export const iniciarSesion = async (req, res) => {
   const user = req.body;
-  const queryConsulta = "SELECT idCliente, CONCAT(nomber, \" \", apellido) nombre, numeroTelefono telefono FROM cliente WHERE correoElectronico = '"+user.correo+"' AND clave = '"+user.clave+"'";
+  const queryConsulta = "SELECT idCliente, CONCAT(nombre, \" \", apellido) nombre, numeroTelefono telefono FROM cliente WHERE correoElectronico = '"+user.correo+"' AND clave = '"+user.clave+"'";
   const [resultado] = await pool.query(queryConsulta);
   console.log(queryConsulta);
   console.log(resultado);
@@ -223,6 +169,19 @@ export const guardarReserva = async (req, res) => {
   const query = "CALL crearReserva("+body.idCliente+", "+body.idVehiculo+", '"+body.fechaInicio+"', '"+body.fechaFin+"', "+body.totalPagar+", "+body.noAutorizacion+");";
   await pool.query(query);
   res.json({ message: "Reserva guardada" });
+};
+
+
+export const guardarPerfil = async (req, res) => {
+  const body = req.body;
+  const query = `CALL crearCliente('${body.nombre}', '${body.apellido}', '${body.numeroTelefono}','${body.correoElectronico}', '${body.clave}', '${body.direccion}');`;
+  try {
+    await pool.query(query);
+    res.json({ message: "Perfil guardado" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error al guardar el perfil" });
+  }
 };
 
 export const generarReciboPdf = (req, res) => {
@@ -256,7 +215,7 @@ export const generarExcel = async (req, res) => {
         res.send(xlsBuffer);
       }
     } catch (err) {
-      res.json("Something went wrong");
+      res.json("Algo Salio Mal.");
     }
   }
 };

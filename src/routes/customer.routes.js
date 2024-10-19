@@ -12,6 +12,7 @@ import {
   renderPrintRecibo,
   cancelarReserva,
   renderPoliticas,
+  guardarPerfil,
 } from "../controllers/customerController.js";
 const router = Router();
 
@@ -28,9 +29,7 @@ router.get("/reservas-excel", generarExcel);
 router.get("/imprimir", renderPrintRecibo);
 router.get("/cancelar", cancelarReserva);
 router.get("/politicas", renderPoliticas);
-/*router.post("/add", createCustomers);
-router.get("/update/:id", editCustomer);
-router.post("/update/:id", updateCustomer);
-router.get("/delete/:id", deleteCustomer);*/
+router.post("/guardarPerfil", guardarPerfil);
+
 
 export default router;
